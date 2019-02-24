@@ -15,7 +15,8 @@
 
       // Slomux - реализация Flux, в которой, как следует из нвазвания, что-то сломано.
       // Нужно выяснить что здесь сломано
-
+    const ReduxContext = createContext(null)
+    // below I use context for avoid window.store
       const createStore = (reducer, initialState) => {
         let currentState = initialState
         const listeners = []
@@ -55,11 +56,14 @@
 
       class Provider extends React.Component {
         componentWillMount() {
-          window.store = this.props.store
+          window.store = this.props.store //window.store -This is wrong 
         }
         
         render() {
-          return this.props.children
+          // return this.props.children //for component get access to store
+          return  <ReduxContext.Provider value={this.props.children}>
+                    this.props.children   {/*all components access the store*/}
+                  </ReduxContext.Provider>
         }
       }
 
