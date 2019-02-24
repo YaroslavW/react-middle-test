@@ -99,11 +99,11 @@
                 <input
                   value={this.state.todoText}
                   placeholder="Название задачи"
-                  onChange={this.updateText}
+                  onChange={this.updateText.bind(this)}
                 />
-                <button onClick={this.addTodo}>Добавить</button>
+                <button onClick={this.addTodo.bind(this)}>Добавить</button>
                 <ul>
-                  {this.props.todos.map((todo, idx) => <li>{todo}</li>)}
+                  {this.props.todos.map((todo, idx) => <li key={idx}>{todo}</li>)}
                 </ul>
               </div>
             </div>
@@ -113,13 +113,19 @@
         updateText(e) {
           const { value } = e.target
 
-          this.state.todoText = value
+          // this.state.todoText = value
+          this.setState({
+            todoText: value
+          })
         }
 
         addTodo() {
           this.props.addTodo(this.state.todoText)
 
-          this.state.todoText = ''
+          // this.state.todoText = ''
+          this.setState({
+             todoText: ''
+             })
         }
       }
 
