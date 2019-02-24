@@ -78,8 +78,9 @@
       const reducer = (state = [], action) => {
         switch(action.type) {
           case ADD_TODO:
-            state.push(action.payload)
-            return state
+            // state.push(action.payload) //here state mutetion 
+            // return state   change here
+            return [...state, action.payload]  // This is right deсision
           default:
             return state
         }
